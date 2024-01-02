@@ -54,10 +54,12 @@ const E = async (e = {}, t = 1, r = 10) => {
         pageSize: r
     };
     // modified
-    const keywordResult = a.keyword.match(/([\s\S]*)\?past=([0-9])/)
-    if (keywordResult) {
-        a.keyword = keywordResult[1]
-        a.semesterId = (+a.semesterId - +keywordResult[2]).toString()
+    if (a.keyword) {
+        const keywordResult = a.keyword.match(/([\s\S]*)\?past=([0-9])/)
+        if (keywordResult) {
+            a.keyword = keywordResult[1]
+            a.semesterId = (+a.semesterId - +keywordResult[2]).toString()
+        }
     }
     const o = await i.get("/api/v1/capture-courses", {
         params: n.exports.decamelizeKeys(a)
