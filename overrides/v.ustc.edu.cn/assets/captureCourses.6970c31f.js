@@ -197,24 +197,18 @@ const E = async (e = {}, t = 1, r = 10) => {
   },
   L = async (e, t, r) => {
     // modified
-    let semesterId;
-    switch (e) {
-      case "2023-1":
-        semesterId = "6";
-        break;
-      case "2022-3":
-        semesterId = "5";
-        break;
-      case "2022-2":
-        semesterId = "4";
-        break;
-      case "2022-1":
-        semesterId = "3";
-        break;
-      case "2021-2":
-        semesterId = "1";
-        break;
-    }
+    const semesterMap = {
+      "2023-3": "8",
+      "2023-2": "7",
+      "2023-1": "6",
+      "2022-3": "5",
+      "2022-2": "4",
+      "2022-1": "3",
+      "2021-2": "1",
+    };
+
+    const semesterId = semesterMap[e];
+
     const a = {
         entry: r,
       },
