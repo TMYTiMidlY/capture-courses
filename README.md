@@ -2,11 +2,11 @@
 
 ## 使用说明
 打开浏览器开发者工具，使用 [Edge](https://learn.microsoft.com/en-us/microsoft-edge/devtools-guide-chromium/javascript/overrides) 或 [Chrome](https://developer.chrome.com/docs/devtools/overrides?hl=zh-cn) 的本地覆盖，将存储覆盖文件的文件夹设为本仓库根目录下的 overrides，然后即可访问 USTC 在线视频平台[直录播-录播课程](https://v.ustc.edu.cn/capture-course/)中的所有课程。设置时有以下几点注意事项：
-1. 设置覆盖文件夹应保证如下的目录结构：
+1. 设置覆盖文件夹应保证如下的目录结构：  
    覆盖文件夹(即本仓库根目录下的overrides)  
-   └───v.ustc.edu.cn
-       │   capture*.js
-       │   captureCourses*.js
+   └───v.ustc.edu.cn  
+       │   capture*.js  
+       │   captureCourses*.js  
 2. 设置完成后，覆盖文件夹的位置不可移动，否则需要在开发者工具内重新设置路径。本仓库更新后，直接将覆盖文件夹内的文件更新即可。
 3. 本地覆盖需要开发者工具始终处于打开状态，打开以后，刷新网页即可生效。
 4. 观看具体的录播视频前，需要通过统一身份认证进行登录。
