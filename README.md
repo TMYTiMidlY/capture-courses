@@ -1,7 +1,7 @@
 # capture-courses
 
 ## 使用说明
-在<a href="https://v.ustc.edu.cn/capture-course/" target="_blank"> USTC 在线视频平台-直录播-录播课程</a>标签页打开浏览器开发者工具，使用<a href="https://learn.microsoft.com/zh-cn/microsoft-edge/devtools-guide-chromium/javascript/overrides" target="_blank"> Edge 的本地覆写</a>或<a href="https://developer.chrome.com/docs/devtools/overrides?hl=zh-cn" target="_blank"> Chrome 的本地覆写</a>，将覆写文件夹设为本仓库根目录下的 overrides，然后即可访问所有已录制的课程。设置时有以下几点注意事项：
+在 [USTC 在线视频平台-直录播-录播课程](https://v.ustc.edu.cn/capture-course/)标签页打开浏览器开发者工具，使用 [Edge 的本地覆写](https://learn.microsoft.com/zh-cn/microsoft-edge/devtools-guide-chromium/javascript/overrides)或 [Chrome 的本地覆写](https://developer.chrome.com/docs/devtools/overrides?hl=zh-cn)，将覆写文件夹设为本仓库根目录下的 overrides，然后即可访问所有已录制的课程。设置时有以下几点注意事项：
 1. 设置覆写文件夹时应保持本仓库原本的目录结构：  
    <pre>
    overrides（设置为覆写文件夹）   
