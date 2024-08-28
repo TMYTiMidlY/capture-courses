@@ -1,7 +1,7 @@
 # capture-courses
 
 ## 使用说明
-在 USTC 在线视频平台[直录播-录播课程](https://v.ustc.edu.cn/capture-course/){:target="_blank"}标签页打开浏览器开发者工具，使用[ Edge 的本地覆写](https://learn.microsoft.com/zh-cn/microsoft-edge/devtools-guide-chromium/javascript/overrides){:target="_blank"} 或[ Chrome 的本地覆写](https://developer.chrome.com/docs/devtools/overrides?hl=zh-cn){:target="_blank"}，将覆写文件夹设为本仓库根目录下的 overrides，然后即可访问所有已录制的课程。设置时有以下几点注意事项：
+在<a href="https://v.ustc.edu.cn/capture-course/" target="_blank"> USTC 在线视频平台-直录播-录播课程</a>标签页打开浏览器开发者工具，使用<a href="https://learn.microsoft.com/zh-cn/microsoft-edge/devtools-guide-chromium/javascript/overrides" target="_blank"> Edge 的本地覆写</a>或<a href="https://developer.chrome.com/docs/devtools/overrides?hl=zh-cn" target="_blank"> Chrome 的本地覆写</a>，将覆写文件夹设为本仓库根目录下的 overrides，然后即可访问所有已录制的课程。设置时有以下几点注意事项：
 1. 设置覆写文件夹时应保持本仓库原本的目录结构：  
    <pre>
    overrides（设置为覆写文件夹）   
@@ -15,7 +15,7 @@
 4. 观看具体的录播视频前，网站需要通过统一身份认证登录。
 
 ## 往期课程支持
-[直录播-录播课程](https://v.ustc.edu.cn/capture-course/){:target="_blank"}的搜索框默认搜索本学期课程。输入如下格式中的任意一个，即可搜索往期课程（最早支持22春）。
+网站默认搜索本学期课程。在搜索框中输入如下格式中的任意一个，即可搜索往期课程（最早支持22春）。
 - 相对论 23春
 - 相对论-23春
 - 相对论/23春
