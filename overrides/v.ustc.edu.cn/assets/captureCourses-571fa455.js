@@ -83,12 +83,9 @@ const b = async (a = {}, e = 1, r = 10) => {
 
     if (s.keyword) {
       const keywordResult = splitString(s.keyword, str2code);
-      console.log(keywordResult);
       if (keywordResult) {
         courseCode = keywordResult[0];
         semesterCode = str2code(keywordResult[1]);
-        console.log(semesterCode);
-        console.log(courseCode);
       }
     }
 
@@ -99,7 +96,7 @@ const b = async (a = {}, e = 1, r = 10) => {
       ),
       courseData = c.data.data,
       i = t.decamelizeKeys({
-        items: [courseData],
+        items: courseData ? [courseData] : [],
         page: 1,
         page_size: 20,
         total: 3,
