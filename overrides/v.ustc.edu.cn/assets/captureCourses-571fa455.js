@@ -50,9 +50,7 @@ const b = async (a = {}, e = 1, r = 10) => {
       const baseNumber = 2;
 
       id += baseNumber - 1;
-      console.log(id);
       const year = baseYear + Math.floor(id / 3);
-      console.log(year);
       const number = id % 3 || 3;
 
       const code = `${year}-${number}`;
