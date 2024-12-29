@@ -11,26 +11,26 @@ import { S as z, a as p, B as K, b as v } from "./captureCourse-1d01f607.js";
 const b = async (a = {}, e = 1, r = 10) => {
     const s = { ...u(a, (d) => d !== ""), page: e, pageSize: r };
     // modified
-    function str2id(semesterStr) {
-      const baseYear = 2022;
-      const baseNumber = 1;
+    function str2code(semesterStr) {
+      const baseYear = 2021;
 
       // 解析输入字符串
       let year = parseInt(semesterStr.slice(0, 2), 10) + 2000;
-      let season = semesterStr.slice(2);
+      const season = semesterStr.slice(2);
 
       // 将季节转换为数字
       let number;
       switch (season) {
         case "春":
           number = 2;
+          year -= 1; // 属于上一年
           break;
         case "夏":
           number = 3;
+          year -= 1; // 属于上一年
           break;
         case "秋":
           number = 1;
-          year += 1; // 秋季属于下一年
           break;
         default:
           return null; // 无效的季节
@@ -41,17 +41,26 @@ const b = async (a = {}, e = 1, r = 10) => {
         return null;
       }
 
-      // 计算 ID
-      let id = (year - baseYear) * 3 + number;
-
-      // 对于基准年份及以后，我们需要减去一个偏移量
-      id -= baseNumber;
-
-      return id;
+      const semesterCode = `${year}-${number}`;
+      return semesterCode;
     }
 
-    function splitString(str, str2id) {
-      str = str.trim()
+    function id2code(id) {
+      const baseYear = 2021;
+      const baseNumber = 2;
+
+      id += baseNumber - 1;
+      console.log(id);
+      const year = baseYear + Math.floor(id / 3);
+      console.log(year);
+      const number = id % 3 || 3;
+
+      const code = `${year}-${number}`;
+      return code;
+    }
+
+    function splitString(str, func) {
+      str = str.trim();
 
       // 使用正则表达式匹配空格、斜杠或减号
       let parts = str.split(/[\s\/-]+/);
@@ -61,35 +70,44 @@ const b = async (a = {}, e = 1, r = 10) => {
         parts = [str, ""]; // 返回原字符串和空字符串
       }
 
-      // 查找str2id返回真值的部分
-      const truePart = parts.find((part) => str2id(part)) || "";
+      // 查找func返回真值的部分
+      const truePart = parts.find((part) => func(part)) || "";
 
-      // 查找str2id返回假值的部分
-      const falsePart = parts.find((part) => !str2id(part)) || "";
+      // 查找func返回假值的部分
+      const falsePart = parts.find((part) => !func(part)) || "";
 
       return [falsePart, truePart];
     }
 
+    let semesterCode, courseCode;
+
     if (s.keyword) {
-      const keywordResult = splitString(s.keyword,str2id);
+      const keywordResult = splitString(s.keyword, str2code);
       console.log(keywordResult);
       if (keywordResult) {
-        s.keyword = keywordResult[0];
-        s.semesterId = str2id(keywordResult[1]) || s.semesterId;
+        courseCode = keywordResult[0];
+        semesterCode = str2code(keywordResult[1]);
+        console.log(semesterCode);
+        console.log(courseCode);
       }
-      console.log(s.keyword);
-      console.log(s.semesterId);
     }
 
-    // end modified
-
-    const c = await o.get("/api/v1/capture-courses", {
-        // modified: remove "public-"
-        params: t.decamelizeKeys(s),
+    const c = await o.get(
+        `/api/v1/${semesterCode || id2code(s.semesterId)}/capture-courses/${
+          courseCode || "MATH1006.01"
+        }`
+      ),
+      courseData = c.data.data,
+      i = t.decamelizeKeys({
+        items: [courseData],
+        page: 1,
+        page_size: 20,
+        total: 3,
       }),
-      i = t.camelizeKeys(c.data.data),
       m = i.items;
     return (i.items = n(p, m)), i;
+
+    // end modified
   },
   B = async (a) => {
     const e = await o.get(`/api/v1/course/${a}/schedules`);
@@ -168,57 +186,15 @@ const b = async (a = {}, e = 1, r = 10) => {
     return (s.items = c), s;
   },
   T = async (a, e, r) => {
-    // modified
-    function semester2id(semesterStr) {
-      const baseYear = 2021;
-      const baseNumber = 2;
-
-      // 解析输入字符串
-      const [yearStr, numberStr] = semesterStr.split("-");
-      const year = parseInt(yearStr, 10);
-      const number = parseInt(numberStr, 10);
-
-      // 检查输入是否有效
-      if (
-        isNaN(year) ||
-        isNaN(number) ||
-        year < baseYear ||
-        number < 1 ||
-        number > 3
-      ) {
-        return null; // 或者可以抛出一个错误
-      }
-
-      // 如果是基准年份但数字小于基准数字，返回 null
-      if (year === baseYear && number < baseNumber) {
-        return null;
-      }
-
-      // 计算 ID
-      let id = (year - baseYear) * 3 + number;
-
-      // 对于基准年份及以后，我们需要减去一个偏移量
-      id -= baseNumber - 1;
-
-      return id;
-    }
-
-    const semesterId = semester2id(a);
-    const s = u({ entry: r }),
-      c = await o.get(
-        `/api/v1/capture-courses?semester_id=${semesterId}&keyword=${e}&page=1&page_size=1`,
-        {
-          params: s,
-        }
-      );
+    const c = await o.get(`/api/v1/${a}/capture-courses/${e}`);
+    // modified: remove entry information "{params: u({entry: r})}"
     return (
-      (c.data.data.items[0] = n(p, t.camelizeKeys(c.data.data.items[0]), {
+      (c.data.data = n(p, t.camelizeKeys(c.data.data), {
         strategy: "excludeAll",
       })),
       (c.data.error = t.camelizeKeys(c.data.error)),
-      { data: c.data.data.items[0], error: c.data.error }
+      c.data
     );
-    // end modified
   },
   V = async (a, e) => {
     const r = u({ entry: e }),
